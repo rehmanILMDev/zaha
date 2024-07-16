@@ -1,0 +1,19 @@
+[
+  
+    {
+      "title":  "Unlock your financial potential",
+      "description": "Invest in sariah compliance assests",
+      "imageUrl": "lib/core/assets/images/onboard1.png"
+    },
+    {
+      "title": "Global portfolio expansion",
+      "description": "access international market through our experts",
+      "imageUrl": "lib/core/assets/images/onboard2.png"
+    },
+    {
+      "title": "world inventmet partners",
+      "description": "Benefits with our top tier asset manager.",
+      "imageUrl": "lib/core/assets/images/onboard3.png"
+    }
+  ]
+  
