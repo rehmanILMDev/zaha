@@ -1,12 +1,12 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:zaha/core/routes/routes.dart';
 import 'package:zaha/core/routes/routes_name.dart';
-import 'package:zaha/features/login/presentation/pages/login_page.dart';
-import 'package:zaha/features/on_broad_feat/presentation/pages/on_broad_page.dart';
 import 'package:zaha/injection_container.dart' as di;
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   await di.init();
   runApp(MyApp());
 }

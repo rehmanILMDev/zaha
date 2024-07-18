@@ -1,5 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:zaha/core/routes/routes_name.dart';
+import 'package:zaha/features/signin_with_otp/presentation/pages/signin_page.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -10,11 +11,11 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
-            onPressed: () {
-              //<HomeViewModel>(context, listen: false).signOut();
-              Navigator.pushNamed(context, RoutesName.signInScreen);
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => LoginPage()));
             },
-          )
+          ),
         ],
       ),
       body: Center(child: Text('Welcome Home!')),

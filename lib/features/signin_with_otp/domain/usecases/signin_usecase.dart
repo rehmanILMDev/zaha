@@ -1,17 +1,23 @@
+import 'package:dartz/dartz.dart';
+import 'package:zaha/features/signin_with_otp/domain/repositories/auth_repo.dart';
+import '../../../../core/error/failures.dart';
 
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:zaha/features/signin_with_otp/data/repositories/auth_repo.dart';
-
-class SignInUseCase {
+class LoginWithPhoneNumber extends UseCase<void, Params> {
   final AuthRepository repository;
 
-  SignInUseCase({required this.repository});
+  LoginWithPhoneNumber(this.repository);
 
-  Future<void> signIn(String phoneNumber, Function(PhoneAuthCredential) verificationCompleted, Function(FirebaseAuthException) verificationFailed, Function(String, int?) codeSent, Function(String) codeAutoRetrievalTimeout) async {
-    return repository.signInWithPhoneNumber(phoneNumber, verificationCompleted, verificationFailed, codeSent, codeAutoRetrievalTimeout);
+  @override
+  Future<Either<Failure, void>> call(Params params) async {
+    return await repository.loginWithPhoneNumber(params.phoneNumber, params.codeSent);
   }
 
-  Future<UserCredential> verifyOTP(String verificationId, String smsCode) async {
-    return repository.verifyOTP(verificationId, smsCode);
-  }
+  verifyOtp(String verificationId, String otp) {}
+}
+
+class Params {
+  final String phoneNumber;
+  final Function(String) codeSent;
+
+  Params({required this.phoneNumber, required this.codeSent});
 }

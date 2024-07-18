@@ -53,18 +53,23 @@ class _LoginPageState extends State<LoginPage> {
           listener: (context, state) {
             if (state.errorMessage != null) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.errorMessage!)),
+                SnackBar(content: Text(state.errorMessage!), 
+                duration:Duration(milliseconds: 500),
+                 backgroundColor: Colors.green,),
               );
             } else if (state.isSubmitting) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Logging in...')),
+                const SnackBar(content: Text('Logging in...'),
+                duration:Duration(milliseconds: 500),
+                backgroundColor: Colors.green,),
               );
             } else if (state.loginSuccess) {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Login successful')),
+                const SnackBar(content: Text('Login successful'),
+                duration:Duration(milliseconds: 500),
+                 backgroundColor: Colors.green,),
               );
-                 Navigator.pushNamed(
-                                      context, RoutesName.homeScreen);
+              Navigator.pushNamed(context, RoutesName.homeScreen);  
             }
           },
           child: Padding(
@@ -96,6 +101,8 @@ class _LoginPageState extends State<LoginPage> {
                               .read<LoginBloc>()
                               .add(LoginEmailChanged(value));
                         },
+                          validator: ValidationBuilder().email().maxLength(50).build(),
+
                         decoration: InputDecoration(
                           labelText: 'Email',
                           hintText: 'Enter email ID',
@@ -144,7 +151,6 @@ class _LoginPageState extends State<LoginPage> {
                               ? () {
                                   BlocProvider.of<LoginBloc>(context)
                                       .add(LoginSubmitted());
-                               
                                 }
                               : null,
                           style: ElevatedButton.styleFrom(

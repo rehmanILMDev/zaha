@@ -70,9 +70,11 @@ import 'package:zaha/features/on_broad_feat/data/repositories/onboarding_reposit
 import 'package:zaha/features/on_broad_feat/domain/repositories/onboarding_repository.dart';
 import 'package:zaha/features/on_broad_feat/domain/usecases/get_onboarding_data.dart';
 import 'package:zaha/features/on_broad_feat/presentation/bloc/on_broad_bloc.dart';
-import 'package:zaha/features/signin_with_otp/data/repositories/auth_repo.dart';
+import 'package:zaha/features/signin_with_otp/data/datasources/auth_remote_data_source.dart';
+import 'package:zaha/features/signin_with_otp/data/repositories/auth_repo_impl.dart';
+import 'package:zaha/features/signin_with_otp/domain/repositories/auth_repo.dart';
 import 'package:zaha/features/signin_with_otp/domain/usecases/signin_usecase.dart';
-import 'package:zaha/features/signin_with_otp/presentation/bloc/bloc.dart';
+import 'package:zaha/features/signin_with_otp/presentation/bloc/auth_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -117,18 +119,20 @@ Future<void> init() async {
       () => LoginRemoteDataSource(client: sl()));
 
   // SignIn with OTP feature dependencies
-  // Bloc
-  sl.registerFactory(() => SignInBloc(signInUseCase: sl()));
+   // Bloc
+  sl.registerFactory(() => AuthBloc(loginWithPhoneNumber: sl()));
 
   // Use cases
-  sl.registerLazySingleton(() => SignInUseCase(repository: sl()));
+  sl.registerLazySingleton(() => LoginWithPhoneNumber(sl()));
 
   // Repository
-  sl.registerLazySingleton<AuthRepository>(() => AuthRepository(firebaseAuth: sl()));
+  sl.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(remoteDataSource: sl()),
+  );
 
   // Data sources
-  // Note: AuthRepository directly uses FirebaseAuth instance
+  sl.registerLazySingleton<AuthRemoteDataSource>(
+    () => AuthRemoteDataSourceImpl(),
+  );
 
-  // Register Dio
-  sl.registerLazySingleton(() => Dio());
 }
