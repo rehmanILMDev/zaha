@@ -1,26 +1,26 @@
 part of 'auth_bloc.dart';
 
 abstract class AuthEvent extends Equatable {
+  const AuthEvent();
+
   @override
   List<Object> get props => [];
 }
 
-class LoginWithPhoneNumberEvent extends AuthEvent {
+class PhoneNumberSubmitted extends AuthEvent {
   final String phoneNumber;
-  final Function(String) codeSent;
 
-  LoginWithPhoneNumberEvent({required this.phoneNumber, required this.codeSent});
+  const PhoneNumberSubmitted(this.phoneNumber);
 
   @override
   List<Object> get props => [phoneNumber];
 }
 
-class VerifyOtpEvent extends AuthEvent {
-  final String verificationId;
+class OtpSubmitted extends AuthEvent {
   final String otp;
 
-  VerifyOtpEvent({required this.verificationId, required this.otp});
+  const OtpSubmitted(this.otp);
 
   @override
-  List<Object> get props => [verificationId, otp];
+  List<Object> get props => [otp];
 }

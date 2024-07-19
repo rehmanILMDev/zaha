@@ -1,23 +1,12 @@
-import 'package:dartz/dartz.dart';
-import 'package:zaha/features/signin_with_otp/domain/repositories/auth_repo.dart';
-import '../../../../core/error/failures.dart';
 
-class LoginWithPhoneNumber extends UseCase<void, Params> {
+import 'package:zaha/features/signin_with_otp/data/repositories/auth_repo_impl.dart';
+
+class SignInWithPhoneNumber {
   final AuthRepository repository;
 
-  LoginWithPhoneNumber(this.repository);
+  SignInWithPhoneNumber(this.repository);
 
-  @override
-  Future<Either<Failure, void>> call(Params params) async {
-    return await repository.loginWithPhoneNumber(params.phoneNumber, params.codeSent);
+  Future<void> call(String phoneNumber) {
+    return repository.signInWithPhoneNumber(phoneNumber);
   }
-
-  verifyOtp(String verificationId, String otp) {}
-}
-
-class Params {
-  final String phoneNumber;
-  final Function(String) codeSent;
-
-  Params({required this.phoneNumber, required this.codeSent});
 }

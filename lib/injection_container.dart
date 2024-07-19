@@ -58,7 +58,7 @@
 
 
 
-import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:zaha/features/login/data/datasources/login_remote_data_source.dart';
 import 'package:zaha/features/login/data/repositories/login_repo_impl.dart';
@@ -70,10 +70,9 @@ import 'package:zaha/features/on_broad_feat/data/repositories/onboarding_reposit
 import 'package:zaha/features/on_broad_feat/domain/repositories/onboarding_repository.dart';
 import 'package:zaha/features/on_broad_feat/domain/usecases/get_onboarding_data.dart';
 import 'package:zaha/features/on_broad_feat/presentation/bloc/on_broad_bloc.dart';
-import 'package:zaha/features/signin_with_otp/data/datasources/auth_remote_data_source.dart';
 import 'package:zaha/features/signin_with_otp/data/repositories/auth_repo_impl.dart';
-import 'package:zaha/features/signin_with_otp/domain/repositories/auth_repo.dart';
 import 'package:zaha/features/signin_with_otp/domain/usecases/signin_usecase.dart';
+import 'package:zaha/features/signin_with_otp/domain/usecases/verify_otp_usecase.dart';
 import 'package:zaha/features/signin_with_otp/presentation/bloc/auth_bloc.dart';
 
 final sl = GetIt.instance;
@@ -118,21 +117,20 @@ Future<void> init() async {
   sl.registerLazySingleton<LoginRemoteDataSource>(
       () => LoginRemoteDataSource(client: sl()));
 
-  // SignIn with OTP feature dependencies
-   // Bloc
-  sl.registerFactory(() => AuthBloc(loginWithPhoneNumber: sl()));
+  // // SignIn with OTP feature dependencies
+   // Firebase
+  sl.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
+
+  // Repositories
+  sl.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(sl()));
 
   // Use cases
-  sl.registerLazySingleton(() => LoginWithPhoneNumber(sl()));
+  sl.registerLazySingleton(() => SignInWithPhoneNumber(sl()));
+  sl.registerLazySingleton(() => VerifyOtp(sl()));
 
-  // Repository
-  sl.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(remoteDataSource: sl()),
-  );
-
-  // Data sources
-  sl.registerLazySingleton<AuthRemoteDataSource>(
-    () => AuthRemoteDataSourceImpl(),
-  );
-
+  // BLoC
+  sl.registerFactory(() => AuthBloc(
+        signInWithPhoneNumber: sl(),
+        verifyOtp: sl(),
+      ));
 }

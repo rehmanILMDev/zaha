@@ -1,24 +1,25 @@
 // login_state.dart
 
-import 'package:equatable/equatable.dart';
 
-class LoginState extends Equatable {
+part of 'signup_bloc.dart';
+
+class SignupState extends Equatable {
   final String id;
   final String phone;
   final bool isValid;
 
-  LoginState({required this.id, required this.phone, required this.isValid});
+  SignupState({required this.id, required this.phone, required this.isValid});
 
-  factory LoginState.initial() {
-    return LoginState(id: '', phone: '', isValid: false);
+  factory SignupState.initial() {
+    return SignupState(id: '', phone: '', isValid: false);
   }
 
-  LoginState copyWith({
+  SignupState copyWith({
     String? id,
     String? phone,
     bool? isValid,
   }) {
-    return LoginState(
+    return SignupState(
       id: id ?? this.id,
       phone: phone ?? this.phone,
       isValid: isValid ?? this.isValid,

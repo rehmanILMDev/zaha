@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:zaha/features/signin_with_otp/presentation/pages/signin_page.dart';
+import 'package:zaha/features/login/presentation/pages/login_page.dart';
 
 class HomePage extends StatelessWidget {
   @override

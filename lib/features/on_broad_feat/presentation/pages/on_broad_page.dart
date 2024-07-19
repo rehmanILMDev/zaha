@@ -138,7 +138,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   ElevatedButton(
                     onPressed: () {
                        Navigator.pushNamed(
-                                  context, RoutesName.signInScreen);
+                                  context, RoutesName.signUpScreen);
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,
@@ -163,7 +163,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
                                 Navigator.pushNamed(
-                                  context, RoutesName.loginScreen);
+                                  context, RoutesName.signInOtpScreen);
                             
                             },
                         ),

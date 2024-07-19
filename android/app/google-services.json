@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "14817130997",
+    "project_id": "zaha-8793f",
+    "storage_bucket": "zaha-8793f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:14817130997:android:3071e93ea506ab6dd408bc",
+        "android_client_info": {
+          "package_name": "com.example.zaha"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBL50Zd-RdTjyttvO3Mzy32wbKD7H4bB34"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

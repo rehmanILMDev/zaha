@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_validator/form_validator.dart';
-import 'package:zaha/features/login/presentation/bloc/login_bloc.dart';
-import 'package:zaha/features/login/presentation/bloc/login_event.dart';
-import 'package:zaha/features/login/presentation/bloc/login_state.dart';
+import 'package:zaha/features/signup/presentation/bloc/signup_bloc.dart';
 import 'package:zaha/injection_container.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class SignupPage extends StatefulWidget {
+  const SignupPage({Key? key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _SignupPageState createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignupPageState extends State<SignupPage> {
   final _formKey = GlobalKey<FormState>();
   final _nationalIdFocusNode = FocusNode();
   final _phoneFocusNode = FocusNode();
@@ -106,8 +104,8 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
       body: BlocProvider(
-        create: (context) => sl<LoginBloc>(),
-        child: BlocBuilder<LoginBloc, LoginState>(
+        create: (context) => sl<SignupBloc>(),
+        child: BlocBuilder<SignupBloc, SignupState>(
           builder: (context, state) {
             return Padding(
               padding: const EdgeInsets.all(16.0),
@@ -130,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                       controller: _nationalIdController,
                       focusNode: _nationalIdFocusNode,
                       onChanged: (value) {
-                        context.read<LoginBloc>().add(LoginIdChanged(value));
+                        context.read<SignupBloc>().add(SignupIdChanged(value));
                         if (_nationalIdTouched) {
                           setState(() {
                             _isNationalIdValid = _validateNationalId();
@@ -150,7 +148,7 @@ class _LoginPageState extends State<LoginPage> {
                       controller: _phoneController,
                       focusNode: _phoneFocusNode,
                       onChanged: (value) {
-                        context.read<LoginBloc>().add(LoginPhoneChanged(value));
+                        context.read<SignupBloc>().add(SignupPhoneChanged(value));
                         if (_phoneTouched) {
                           setState(() {
                             _isPhoneValid = _validatePhone();
@@ -177,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                                   _phoneTouched = true;
                                 });
                                 if (_formKey.currentState?.validate() ?? false) {
-                                  context.read<LoginBloc>().add(LoginSubmitted());
+                                  context.read<SignupBloc>().add(SignupSubmitted());
                                 }
                               }
                             : null,
